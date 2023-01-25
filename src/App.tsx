@@ -16,7 +16,8 @@ import React, { useEffect, useState } from 'react';
 
 function App() {
   const [data, setData] = useState<any[]>([]);
-  console.log(data);
+  const [order, setOrder] = useState<any>('name');
+
   // fetch Data from API
 
   useEffect(() => {
@@ -34,6 +35,35 @@ function App() {
     fetchData().catch((err) => console.log(err));
   }, []);
 
+  // sorting function:
+  function dynamicSort(property: any) {
+    var sortOrder = 1;
+    if (property[0] === '-') {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a: any, b: any) {
+      if (sortOrder == -1) {
+        return b[property].localeCompare(a[property]);
+      } else {
+        return a[property].localeCompare(b[property]);
+      }
+    };
+  }
+  const orderByName = data.sort(dynamicSort('name'));
+
+  function changeOrder() {
+    if (order === 'name') {
+      setOrder(
+        data.sort((v1, v2) =>
+          v1.value < v2.value ? 1 : v1.value > v2.value ? -1 : 0,
+        ),
+      );
+    } else {
+      setOrder(orderByName);
+    }
+  }
+
   return (
     <>
       <Box>
@@ -49,6 +79,7 @@ function App() {
                   p: '7px',
                 }}
                 aria-label="sort football clubs"
+                onClick={changeOrder}
               />
             </IconButton>
           </Toolbar>
