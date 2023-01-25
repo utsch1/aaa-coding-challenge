@@ -1,5 +1,14 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import {
+  Avatar,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 function App() {
   const [data, setData] = useState<any[]>([]);
@@ -28,10 +37,31 @@ function App() {
       </header>
       {data.map((club) => (
         <div key={club.id}>
-          <img src={club.image} alt="logo" />
-          <p>{club.name}</p>
-          <p>{club.country}</p>
-          <p>{club.value}</p>
+          <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt="logo" src={club.image} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={club.name}
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: 'inline' }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                      mr="5px"
+                    >
+                      {club.country}
+                    </Typography>
+                    {club.value} Millionen Euro
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider component="li" />
+          </List>
         </div>
       ))}
     </div>
