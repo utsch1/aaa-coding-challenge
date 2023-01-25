@@ -1,11 +1,15 @@
-import './App.css';
+import SortIcon from '@mui/icons-material/Sort';
 import {
+  AppBar,
   Avatar,
+  Box,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Toolbar,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -31,13 +35,29 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>all about clubs</p>
-      </header>
+    <>
+      <Box>
+        <AppBar position="fixed" sx={{ height: '60px', background: '#01C13B' }}>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography sx={{ fontWeight: 'bold' }}>all about clubs</Typography>
+            <IconButton size="large" edge="end">
+              <SortIcon
+                sx={{
+                  color: 'white',
+                  background: '#61fe90',
+                  borderRadius: '50%',
+                  p: '7px',
+                }}
+                aria-label="sort football clubs"
+              />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Box sx={{ mt: '60px' }} />
       {data.map((club) => (
-        <div key={club.id}>
-          <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box key={club.id}>
+          <List sx={{ width: '100%', bgcolor: 'background.paper', p: '0' }}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar alt="logo" src={club.image} />
@@ -60,11 +80,11 @@ function App() {
                 }
               />
             </ListItem>
-            <Divider component="li" />
+            <Divider />
           </List>
-        </div>
+        </Box>
       ))}
-    </div>
+    </>
   );
 }
 
