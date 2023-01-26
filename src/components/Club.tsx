@@ -1,6 +1,6 @@
 import { Image } from '@mui/icons-material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -46,31 +46,41 @@ const Club = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box
+      <Grid
+        container
+        display="flex"
         sx={{
           mt: '60px',
           backgroundColor: '#202020',
           height: '200px',
           pl: '30px',
+          pr: '30px',
         }}
       >
-        <Typography
-          component="h1"
+        <Grid
+          item
+          component="span"
+          position="absolute"
           color="white"
           fontWeight="bold"
-          display="flex"
-          alignItems="end"
+          alignSelf="end"
+          sx={{ mb: '20px' }}
         >
           {footballClub?.country}
-        </Typography>
+        </Grid>
         <Box
           component="img"
+          alignSelf="center"
+          justifySelf="center"
           src={footballClub?.image}
           alt="logo"
-          display="flex"
-          sx={{ m: 'auto', width: '150px', height: 'auto' }}
+          sx={{
+            m: 'auto',
+            width: '160px',
+            height: '160px',
+          }}
         />
-      </Box>
+      </Grid>
       <Box sx={{ p: '30px' }}>
         <Typography sx={{ pb: '40px' }}>
           Der Club{' '}
