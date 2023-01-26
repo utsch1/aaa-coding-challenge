@@ -121,8 +121,8 @@ const Home = () => {
       </Box>
       <Box sx={{ mt: '60px' }} />
       {hasError && (
-        <Typography align="center" sx={{ mt: '20px' }}>
-          Something went wrong.
+        <Typography align="center" sx={{ pt: '20px' }}>
+          Es ist etwas schief gegangen 😕
         </Typography>
       )}
       {isLoading ? (
