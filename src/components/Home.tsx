@@ -17,12 +17,11 @@ import {
 import React, { useEffect, useState } from 'react';
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-
   const [progress, setProgress] = useState(0);
-  const [order, setOrder] = useState<any>();
+  const [order, setOrder] = useState(true);
 
   interface Clubs {
     id: string;
@@ -34,8 +33,8 @@ const Home = () => {
     stadium: { size: number; name: string };
     location: { lat: number; lng: number };
   }
-  // fetch Data from API
 
+  // fetch Data from API
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -45,6 +44,9 @@ const Home = () => {
           'https://public.allaboutapps.at/hiring/clubs.json',
         );
         const json = await result.json();
+        json.sort(function (a: any, b: any) {
+          return a.name.localeCompare(b.name);
+        });
         setData(json);
       } catch (err) {
         setHasError(true);
@@ -67,41 +69,30 @@ const Home = () => {
     };
   }, []);
 
-  // sorting function:
-  function dynamicSort(property: any) {
-    var sortOrder = 1;
-    if (property[0] === '-') {
-      sortOrder = -1;
-      property = property.substr(1);
-    }
-    return function (a: any, b: any) {
-      if (sortOrder == -1) {
-        return b[property].localeCompare(a[property]);
-      } else {
-        return a[property].localeCompare(b[property]);
-      }
-    };
-  }
-  // const orderByName = data.sort(dynamicSort('name'));
-  // const orderByValue = data.sort((v1, v2) =>
-  //   v1.value < v2.value ? 1 : v1.value > v2.value ? -1 : 0,
-  // );
-
+  // sorting function
   function changeOrder() {
-    if (order === 'name') {
-      setOrder(
-        data.sort((v1: any, v2: any) =>
-          v1.value < v2.value ? 1 : v1.value > v2.value ? -1 : 0,
-        ),
-      );
+    if (order === true) {
+      setOrder(false);
+      data.sort((a: any, b: any) => b.value - a.value);
     } else {
-      setOrder(data.sort(dynamicSort('name')));
+      setOrder(true);
+      data.sort(function (a: any, b: any) {
+        return a.name.localeCompare(b.name);
+      });
     }
   }
+
   return (
     <>
       <Box>
-        <AppBar position="fixed" sx={{ height: '60px', background: '#01C13B' }}>
+        <AppBar
+          position="fixed"
+          sx={{
+            height: '60px',
+            width: '100vw',
+            background: '#01C13B',
+          }}
+        >
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography sx={{ fontWeight: 'bold' }}>all about clubs</Typography>
             <IconButton size="large" edge="end">
@@ -147,7 +138,7 @@ const Home = () => {
                 >
                   <ListItem alignItems="flex-start">
                     <ListItemAvatar>
-                      <Avatar alt="logo" src={club.image} />
+                      <Avatar alt="Logo" src={club.image} />
                     </ListItemAvatar>
                     <ListItemText
                       primary={club.name}

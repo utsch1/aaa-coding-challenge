@@ -13,8 +13,6 @@ const Club = () => {
     navigate(-1);
   };
 
-  console.log(footballClub);
-
   // fetch single Club from API
 
   useEffect(() => {
@@ -73,10 +71,10 @@ const Club = () => {
           alignSelf="center"
           justifySelf="center"
           src={footballClub?.image}
-          alt="logo"
+          alt='Logo'
           sx={{
             m: 'auto',
-            width: '160px',
+            width: 'auto',
             height: '160px',
           }}
         />
