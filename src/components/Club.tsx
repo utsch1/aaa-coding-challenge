@@ -1,7 +1,6 @@
-import { Image } from '@mui/icons-material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Club = () => {
@@ -14,7 +13,6 @@ const Club = () => {
   };
 
   // fetch single Club from API
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -71,7 +69,7 @@ const Club = () => {
           alignSelf="center"
           justifySelf="center"
           src={footballClub?.image}
-          alt='Logo'
+          alt="Logo"
           sx={{
             m: 'auto',
             width: 'auto',
